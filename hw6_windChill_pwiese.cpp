@@ -1,40 +1,32 @@
 /******************************************************************************
 filename:       hw6_windChill_pwiese.cpp
-
 author:         Max T.  Max T.  Max T.  Max T.  Max T.  Max T.  Max T.  Max T.  
-date:           2/16/19  2/16/19  2/16/19  2/16/19  2/16/19  2/16/19  2/16/19  
+date:           2/16/19  2/16/19  2/16/19  2/16/19  2/16/19  2/16/19  2/16/19 
 *******************************************************************************/
 #include <iostream>
 #include <cmath>
 using namespace std;
 
-
-//where v = wind speed in m/sec, t = temperature in degrees Celsius for t <= 10, w = windchill index (in
-//degrees Celsius).
-
 float v, t, w;			//for, in order, //wind speed, temp., and windchill calculation
 
 // function prototypes
 void intro();			// introduction to what the program does
-float getTemp ();		// prompts the user to enter a temperature in Celsius
-		    // Within this function, there should be data validation to make
-			//sure the value input is <= 10. If it isn't, there should be a loop that runs until the user inputs a valid number.
-			//loop that runs until the user inputs a valid number.
+float getTemp(float t);		// prompts the user to enter a temperature in Celsius
+float getWind(float v);
+float computeWC(float t, float w, float v);	// computes the windchill index for the temperature input
+void showWC(float t, float w);	// shows the original temperature and the windchill index
 
-float computeWC();	// computes the windchill index for the temperature input
-void showWC ();	// shows the original temperature and the windchill index
 
 int main(){
-    void intro();
-    float getTemp();
-    float computeWC();
-    void showWC();
-
+    float v, t, w;	
+    
+    intro();
+    t = getTemp(t);
+    v = getWind(v);
+    w = computeWC(t,w,v);
+    showWC(t,w);
   return 0;
 }
-
-
-
 
 
 void intro(){
@@ -42,10 +34,7 @@ void intro(){
 }
 
 
-
-
-
-float getTemp(){				// gets temp input, while asking again if input is higher than 10
+float getTemp(float t){				// gets temp input, while asking again if input is higher than 10
     do
     {
         cout << "Please enter a temperature in Celsius, no higher than 10.\n";
@@ -60,11 +49,25 @@ float getTemp(){				// gets temp input, while asking again if input is higher th
   return t;
 }
 
+float getWind(float v){
+    do
+    {
+        cout << "Please enter a windspeed, must be higher than 3.\n";
+        cin >> v;
+        if (v < 3)
+        {
+        cout << "Please enter a windspeed higher than 3.\n" << endl;
+    }
+    }
+    while (v < 3 );
+
+  return v;
+}
 
 
 
 
-float computeWC(float t){
+float computeWC(float t, float w, float v){
 
   w = 13.12 + (0.6215 * t) - (11.37 * pow (v, 0.16)) + (0.3965 * t * pow (v, 0.016));
 
@@ -74,10 +77,8 @@ float computeWC(float t){
 
 
 
-void showWC(){
+void showWC(float t, float w){
     cout << "The original temperature is: " << t << endl;
     cout << "The windchill index is: " << w << endl;
 }
-
-
 
